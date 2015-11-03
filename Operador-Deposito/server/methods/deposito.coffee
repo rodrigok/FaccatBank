@@ -3,7 +3,7 @@ transacoes = new Meteor.Collection 'transacoes'
 
 Meteor.methods
 	depositar: (agencia_id, conta_id, valor) ->
-		tx.start 'depositar'
+		console.log 'depositar', agencia_id, conta_id, valor
 
 		transacoes.insert
 			operacao: 'depositar'
@@ -11,8 +11,6 @@ Meteor.methods
 			conta: conta_id
 			operador: Meteor.userId()
 			valor: valor
-		,
-			tx: true
 
 		contas.update
 			_id: conta_id
@@ -20,7 +18,3 @@ Meteor.methods
 		,
 			$inc:
 				valor: valor
-		,
-			tx: true
-
-		tx.commit()
