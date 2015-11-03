@@ -3,8 +3,6 @@ transacoes = new Meteor.Collection 'transacoes'
 
 Meteor.methods
 	depositar: (data) ->
-		console.log 'depositar', data
-
 		transacoes.insert
 			operacao: 'depositar'
 			agencia: data.agencia
