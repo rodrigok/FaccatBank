@@ -40,13 +40,13 @@ Meteor.methods
 		return true
 
 
-	'cliente:deletar': (cfp) ->
+	'cliente:deletar': (cpf) ->
 		# TODO verificar permissão
 
 		Validations.cpf cpf
 
 		Verifications.deveExistirCpf cpf
 
-		clientes.remove _id: cfp
+		clientes.remove _id: cpf
 
 		return true

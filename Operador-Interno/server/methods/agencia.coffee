@@ -18,7 +18,7 @@ Meteor.methods
 		return agencias.find().fetch()
 
 
-	'agencia:deletar': (conta) ->
+	'agencia:deletar': (agencia) ->
 		# TODO verificar permissão
 
 		Validations.agencia agencia
