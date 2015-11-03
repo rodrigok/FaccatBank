@@ -6,6 +6,13 @@
 		if not /^\d{11}$/.test(cpf)
 			throw new Meteor.Error 'O campo "cpf" deve conter 11 digitos sem separadores'
 
+	senha: (senha) ->
+		if not Match.test(senha, String)
+			throw new Meteor.Error 'O campo "senha" deve ser string'
+
+		if not /^.{6,}$/.test(senha)
+			throw new Meteor.Error 'O campo "senha" deve conter 6 ou mais digitos'
+
 	nome: (nome) ->
 		if not Match.test(nome, String)
 			throw new Meteor.Error 'O campo "nome" deve ser string'
@@ -21,7 +28,7 @@
 
 @Verifications =
 	deveExistirCpf: (cpf) ->
-		record = clientes.findOne(cpf)
+		record = Meteor.users.findOne(cpf)
 		if not record?
 			throw new Meteor.Error "Cliente não encontrado"
 
@@ -44,7 +51,7 @@
 
 
 	naoDeveExistirCpf: (cpf) ->
-		record = clientes.findOne(cpf)
+		record = Meteor.users.findOne(cpf)
 		if record?
 			throw new Meteor.Error "Cliente já cadastrado"
 
