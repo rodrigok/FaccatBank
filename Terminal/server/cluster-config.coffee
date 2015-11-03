@@ -13,3 +13,5 @@ agencia.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '01700873016
 agencia.call 'conta:cadastrar', {cpf: '01700873016', conta: '1'}
 
 agencia.call 'deposito', {conta: '1', valor: 120}
+agencia.call 'deposito', {conta: '1', valor: 20}
+agencia.call 'deposito', {conta: '1', valor: 100}
