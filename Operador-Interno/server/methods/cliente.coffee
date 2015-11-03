@@ -1,17 +1,11 @@
-clientes = new Meteor.Collection 'clientes'
-
 Meteor.methods
-	cadastrarCliente: (nome, cpf) ->
+	'cliente:cadastrar': (nome, cpf) ->
 		# TODO verificar permissão
 
-		if not Match.test(nome, String) or not Match.test(cpf, String)
-			throw new Meteor.Error 'Os campos "nome" e "cpf" devem ser string'
+		Validations.cpf cpf
+		Validations.nome nome
 
-		if not /^\d{11}$/.test(cpf)
-			throw new Meteor.Error 'O campo "cpf" deve conter 11 digitos sem separadores'
-
-		if clientes.findOne(cpf)?
-			throw new Meteor.Error 'CPF já cadastrado'
+		Verifications.naoDeveExistirCpf cpf
 
 		clientes.insert
 			_id: cpf
@@ -20,20 +14,19 @@ Meteor.methods
 		return true
 
 
-	listarClientes: ->
+	'cliente:listar': ->
 		# TODO verificar permissão
 
 		return clientes.find().fetch()
 
 
-	alterarCliente: (cpf, nome) ->
+	'cliente:alterar': (cpf, nome) ->
 		# TODO verificar permissão
 
-		if not Match.test(nome, String) or not Match.test(cpf, String)
-			throw new Meteor.Error 'Os campos "nome" e "cpf" devem ser string'
+		Validations.cpf cpf
+		Validations.nome nome
 
-		if not /^\d{11}$/.test(cpf)
-			throw new Meteor.Error 'O campo "cpf" deve conter 11 digitos sem separadores'
+		Verifications.deveExistirCpf cpf
 
 		query =
 			_id: cpf
@@ -47,15 +40,12 @@ Meteor.methods
 		return true
 
 
-	deletarCliente: (cfp) ->
+	'cliente:deletar': (cfp) ->
 		# TODO verificar permissão
 
-		if not Match.test(cpf, String)
-			throw new Meteor.Error 'O campo "cpf" deve ser string'
+		Validations.cpf cpf
 
-		if not /^\d{11}$/.test(cpf)
-			throw new Meteor.Error 'O campo "cpf" deve conter 11 digitos sem separadores'
-
+		Verifications.deveExistirCpf cpf
 
 		clientes.remove _id: cfp
 
