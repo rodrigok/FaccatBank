@@ -1,13 +1,14 @@
 Meteor.methods
-	'agencia:cadastrar': (agencia) ->
+	'agencia:cadastrar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.agencia agencia
+		Validations.agencia data.agencia
 
-		Verifications.naoDeveExistirAgencia agencia
+		Verifications.naoDeveExistirAgencia data.agencia
 
 		agencias.insert
-			_id: agencia
+			_id: data.agencia
 
 		return true
 
@@ -18,12 +19,13 @@ Meteor.methods
 		return agencias.find().fetch()
 
 
-	'agencia:deletar': (agencia) ->
+	'agencia:deletar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.agencia agencia
-		Verifications.deveExistirAgencia agencia
+		Validations.agencia data.agencia
+		Verifications.deveExistirAgencia data.agencia
 
-		agencias.remove _id: agencia
+		agencias.remove _id: data.agencia
 
 		return true

@@ -1,20 +1,21 @@
 Meteor.methods
-	'cliente:cadastrar': (nome, cpf, senha) ->
+	'cliente:cadastrar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.cpf cpf
-		Validations.nome nome
-		Validations.senha senha
+		Validations.cpf data.cpf
+		Validations.nome data.nome
+		Validations.senha data.senha
 
-		Verifications.naoDeveExistirCpf cpf
+		Verifications.naoDeveExistirCpf data.cpf
 
 		Meteor.users.insert
-			_id: cpf
+			_id: data.cpf
 			role: 'client'
 			profile:
-				nome: nome
+				nome: data.nome
 
-		Accounts.setPassword cpf, senha
+		Accounts.setPassword data.cpf, data.senha
 
 		return true
 
@@ -25,13 +26,14 @@ Meteor.methods
 		return Meteor.users.find({role: 'client'}).fetch()
 
 
-	'cliente:deletar': (cpf) ->
+	'cliente:deletar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.cpf cpf
+		Validations.cpf data.cpf
 
-		Verifications.deveExistirCpf cpf
+		Verifications.deveExistirCpf data.cpf
 
-		Meteor.users.remove _id: cpf
+		Meteor.users.remove _id: data.cpf
 
 		return true

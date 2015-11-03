@@ -1,19 +1,20 @@
 Meteor.methods
-	'conta:cadastrar': (cpf, agencia, conta) ->
+	'conta:cadastrar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.cpf cpf
-		Validations.agencia agencia
-		Validations.conta conta
+		Validations.cpf data.cpf
+		Validations.agencia data.agencia
+		Validations.conta data.conta
 
-		Verifications.deveExistirCpf cpf
-		Verifications.deveExistirAgencia agencia
-		Verifications.naoDeveExistirConta conta
+		Verifications.deveExistirCpf data.cpf
+		Verifications.deveExistirAgencia data.agencia
+		Verifications.naoDeveExistirConta data.conta
 
 		contas.insert
-			_id: conta
-			agencia: agencia
-			cliente: cpf
+			_id: data.conta
+			agencia: data.agencia
+			cliente: data.cpf
 			saldo: 0
 
 		return true
@@ -25,12 +26,13 @@ Meteor.methods
 		return contas.find().fetch()
 
 
-	'conta:deletar': (conta) ->
+	'conta:deletar': (data) ->
 		# TODO verificar permissão
+		check data, Object
 
-		Validations.conta conta
-		Verifications.deveExistirConta conta
+		Validations.conta data.conta
+		Verifications.deveExistirConta data.conta
 
-		contas.remove _id: conta
+		contas.remove _id: data.conta
 
 		return true
