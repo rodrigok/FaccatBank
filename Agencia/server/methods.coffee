@@ -1,4 +1,4 @@
-agencia = '1'
+agencia = String(process.env.AGENCIA)
 
 chamarOperador = (operador, nome, data) ->
 	operadorInterno = Cluster.discoverConnection("operador-#{operador}")
