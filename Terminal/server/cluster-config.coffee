@@ -1,18 +1,17 @@
-console.log process.env.MONGO_URL
 Cluster.connect process.env.MONGO_URL
 Cluster.register 'terminal'
 
-operadorInterno = Cluster.discoverConnection("operador-interno")
+agencia = Cluster.discoverConnection("agencia")
 
 # Dados de teste
-try operadorInterno.call 'agencia:deletar', '1'
-try operadorInterno.call 'agencia:deletar', '2'
-try operadorInterno.call 'agencia:deletar', '3'
-try operadorInterno.call 'cliente:deletar', '01700873016'
-try operadorInterno.call 'conta:deletar', '1'
+try agencia.call 'agencia:deletar', {agencia: '1'}
+try agencia.call 'agencia:deletar', {agencia: '2'}
+try agencia.call 'agencia:deletar', {agencia: '3'}
+try agencia.call 'cliente:deletar', {cpf: '01700873016'}
+try agencia.call 'conta:deletar', {conta: '1'}
 
-operadorInterno.call 'agencia:cadastrar', '1'
-operadorInterno.call 'agencia:cadastrar', '2'
-operadorInterno.call 'agencia:cadastrar', '3'
-operadorInterno.call 'cliente:cadastrar', 'Rodrigo Nascimento', '01700873016', '123456'
-operadorInterno.call 'conta:cadastrar', '01700873016', '1', '1'
+agencia.call 'agencia:cadastrar', {agencia: '1'}
+agencia.call 'agencia:cadastrar', {agencia: '2'}
+agencia.call 'agencia:cadastrar', {agencia: '3'}
+agencia.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '01700873016', senha: '123456'}
+agencia.call 'conta:cadastrar', {cpf: '01700873016', agencia: '1', conta: '1'}
