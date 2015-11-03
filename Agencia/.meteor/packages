@@ -6,7 +6,8 @@
 
 meteor-base             # Packages every Meteor app needs to have
 mongo                   # The database Meteor supports right now
-
+check
 coffeescript
+
 babrahams:transactions
 meteorhacks:cluster

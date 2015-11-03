@@ -1,33 +1,38 @@
-chamarOperadorInterno = (nome, argumentos) ->
+agencia = '1'
+
+chamarOperadorInterno = (nome, data) ->
 	operadorInterno = Cluster.discoverConnection("operador-interno")
 	try
-		return operadorInterno.apply nome, argumentos
+		if Match.test data, Object
+			data.agencia = agencia
+
+		return operadorInterno.call nome, data
 	catch e
 		throw e
 
 
 # Interno - Agencias
 Meteor.methods
-	'agencia:cadastrar': ->
-		return chamarOperadorInterno 'agencia:cadastrar', arguments
+	'agencia:cadastrar': (data) ->
+		return chamarOperadorInterno 'agencia:cadastrar', data
 
-	'agencia:deletar': ->
-		return chamarOperadorInterno 'agencia:deletar', arguments
+	'agencia:deletar': (data) ->
+		return chamarOperadorInterno 'agencia:deletar', data
 
 
 # Interno - Clientes
 Meteor.methods
-	'conta:cadastrar': ->
-		return chamarOperadorInterno 'conta:cadastrar', arguments
+	'conta:cadastrar': (data) ->
+		return chamarOperadorInterno 'conta:cadastrar', data
 
-	'conta:deletar': ->
-		return chamarOperadorInterno 'conta:deletar', arguments
+	'conta:deletar': (data) ->
+		return chamarOperadorInterno 'conta:deletar', data
 
 
 # Interno - Contas
 Meteor.methods
-	'cliente:cadastrar': ->
-		return chamarOperadorInterno 'cliente:cadastrar', arguments
+	'cliente:cadastrar': (data) ->
+		return chamarOperadorInterno 'cliente:cadastrar', data
 
-	'cliente:deletar': ->
-		return chamarOperadorInterno 'cliente:deletar', arguments
+	'cliente:deletar': (data) ->
+		return chamarOperadorInterno 'cliente:deletar', data
