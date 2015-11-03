@@ -11,3 +11,5 @@ try agencia.call 'conta:deletar', {conta: '1'}
 agencia.call 'agencia:cadastrar', {agencia: '1'}
 agencia.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '01700873016', senha: '123456'}
 agencia.call 'conta:cadastrar', {cpf: '01700873016', agencia: '1', conta: '1'}
+
+agencia.call 'deposito', {agencia: '1', conta: '1', valor: 120}

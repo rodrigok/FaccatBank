@@ -2,19 +2,19 @@ contas = new Meteor.Collection 'contas'
 transacoes = new Meteor.Collection 'transacoes'
 
 Meteor.methods
-	depositar: (agencia_id, conta_id, valor) ->
-		console.log 'depositar', agencia_id, conta_id, valor
+	depositar: (data) ->
+		console.log 'depositar', data
 
 		transacoes.insert
 			operacao: 'depositar'
-			agencia: agencia_id
-			conta: conta_id
+			agencia: data.agencia
+			conta: data.conta
 			operador: Meteor.userId()
-			valor: valor
+			valor: data.valor
 
 		contas.update
-			_id: conta_id
-			agencia: agencia_id
+			_id: data.conta
+			agencia: data.agencia
 		,
 			$inc:
-				valor: valor
+				valor: data.valor
