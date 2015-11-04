@@ -3,6 +3,7 @@ Meteor.startup ->
 		Meteor.users.insert
 			_id: '00000000000'
 			username: '00000000000'
+			agencia: '1'
 			role: 'funcionario'
 			profile:
 				nome: 'Funcionário Exemplo'
