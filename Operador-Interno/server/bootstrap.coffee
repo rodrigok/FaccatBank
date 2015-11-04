@@ -18,3 +18,7 @@ Meteor.startup ->
 				nome: 'Cliente Exemplo'
 
 		Accounts.setPassword '11111111111', '11111111111'
+
+	if not agencias.findOne('1')?
+		agencias.insert
+			_id: '1'
