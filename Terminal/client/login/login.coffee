@@ -10,7 +10,6 @@ Template.login.helpers
 Template.login.events
 	'submit form': (e, t) ->
 		e.preventDefault()
-		localStorage.clear()
 
 		t.errors.set []
 
@@ -18,9 +17,10 @@ Template.login.events
 		contaValue = $('#conta').val().trim()
 		senhaValue = $('#senha').val().trim()
 
+		localStorage.setItem('agencia', agenciaValue)
+
 		login = ->
-			window.AccountCliente = new AccountsClient({connection: window.agenciaConn})
-			window.AccountCliente.callLoginMethod
+			window.account.callLoginMethod
 				methodArguments: [{
 					user: {username: contaValue}
 					password: Accounts._hashPassword(senhaValue)
@@ -42,22 +42,10 @@ Template.login.events
 			window.agenciaConn.close()
 			delete window.agenciaConn
 
-		window.agenciaConn = Cluster.discoverConnection("agencia#{agenciaValue}")
-		Tracker.autorun (c) ->
-			if not agenciaConn?
-				c.stop()
-				return
-
-			status = agenciaConn.status()
-			if status.connected is true
-				c.stop()
-				agencia.set agenciaConn
+		conectarNaAgencia agenciaValue, (success) ->
+			if success is true
 				login()
-
-			if status.connected is false and status.retryCount >= 1
-				c.stop
-				agenciaConn.close()
-				delete window.agenciaConn
+			else
 				errors = t.errors.get()
 				errors.push('Agencia inválida ou indisponível')
 				t.errors.set errors
