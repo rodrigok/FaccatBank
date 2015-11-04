@@ -7,6 +7,8 @@ Meteor.methods
 		Verifications.deveExistirAgencia data.agencia
 		Verifications.deveExistirConta data.conta
 
+		Verifications.temSaldoParaSaque data.conta, data.valor
+
 		transacoes.insert
 			operacao: 'sacar'
 			tipo: 'debito'

@@ -78,7 +78,7 @@
 
 		return record
 
-	temSaldoParaSaque(conta, valor) ->
+	temSaldoParaSaque: (conta, valor) ->
 		if not Match.test(valor, Number)
 			throw new Meteor.Error 'O campo "valor" deve ser numérico'
 
@@ -90,5 +90,4 @@
 		if saldo < valor
 			throw new Meteor.Error 'Conta não possui saldo suficiente'
 
-		return saldo	
-
+		return saldo

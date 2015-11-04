@@ -77,3 +77,17 @@
 			throw new Meteor.Error "Conta já cadastrada"
 
 		return record
+
+	temSaldoParaSaque: (conta, valor) ->
+		if not Match.test(valor, Number)
+			throw new Meteor.Error 'O campo "valor" deve ser numérico'
+
+		record = Meteor.users.findOne(conta)
+		if not record?
+			throw new Meteor.Error "Conta não encontrada"
+
+		saldo = record.saldo
+		if saldo < valor
+			throw new Meteor.Error 'Conta não possui saldo suficiente'
+
+		return saldo
