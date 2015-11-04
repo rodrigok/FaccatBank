@@ -34,17 +34,15 @@ Tracker.autorun (c) ->
 				if AccountCliente.userId()?
 					c.stop()
 
-					agenciaCliente.call 'depositar', {conta: '1', valor: 120}
-					agenciaCliente.call 'depositar', {conta: '1', valor: 20}
-					agenciaCliente.call 'depositar', {conta: '1', valor: 100}
+					agenciaCliente.call 'depositar', {valor: 120}
+					agenciaCliente.call 'depositar', {valor: 20}
+					agenciaCliente.call 'depositar', {valor: 100}
 
-					agenciaCliente.call 'sacar', {conta: '1', valor: 40}
+					agenciaCliente.call 'sacar', {valor: 40}
 
-					agenciaCliente.call 'transferir', {conta: '1', valor: 50, para: {agencia: '1', conta: '2'}}
+					agenciaCliente.call 'transferir', {valor: 50, para: {agencia: '1', conta: '2'}}
 
-					agenciaCliente.call 'extrato', {conta: '1'}, (err, data) ->
+					agenciaCliente.call 'extrato', {}, (err, data) ->
 						console.log 'conta 1', JSON.stringify(data, null, 2)
 
-					agenciaCliente.call 'extrato', {conta: '2'}, (err, data) ->
-						console.log 'conta 2', JSON.stringify(data, null, 2)
 		, 2000
