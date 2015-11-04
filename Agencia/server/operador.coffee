@@ -12,15 +12,20 @@ agencia = String(process.env.AGENCIA)
 		throw e
 
 
+permissoes =
+	interno: ['funcionario']
+	deposito: ['cliente']
+	saque: ['cliente']
+	extrato: ['cliente']
+	transferencia: ['cliente']
+
+
 @chamarOperadorAutenticado = (operador, nome, data) ->
 	user = Meteor.user()
 	if not user?
 		throw new Meteor.Error 'Autentiação requerida'
 
-	if operador is 'interno' and user.role isnt 'funcionario'
-		throw new Meteor.Error 'Usuário sem acesso'
-
-	if operador isnt 'interno' and user.role not in ['funcionario', 'cliente']
+	if user.role not in permissoes[operador]
 		throw new Meteor.Error 'Usuário sem acesso'
 
 	return chamarOperador operador, nome, data
