@@ -31,4 +31,6 @@ Meteor.methods
 
 		contas.remove _id: data.conta
 
+		transacoes.remove conta: data.conta
+
 		return true
