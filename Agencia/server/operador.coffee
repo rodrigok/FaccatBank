@@ -3,10 +3,6 @@ agencia = String(process.env.AGENCIA)
 @chamarOperador = (operador, nome, data) ->
 	operadorInterno = Cluster.discoverConnection("operador-#{operador}")
 	try
-		if Match.test data, Object
-			data.agencia = agencia
-			data.operador = Meteor.userId()
-
 		return operadorInterno.call nome, data
 	catch e
 		throw e
@@ -27,5 +23,11 @@ permissoes =
 
 	if user.role not in permissoes[operador]
 		throw new Meteor.Error 'Usuário sem acesso'
+
+	if Match.test data, Object
+		data.agencia = Meteor.user().agencia
+		data.operador = Meteor.user()
+		if Meteor.user().role is 'conta'
+			data.conta = Meteor.user()._id
 
 	return chamarOperador operador, nome, data
