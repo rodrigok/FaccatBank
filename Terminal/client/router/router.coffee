@@ -5,4 +5,7 @@ Router.onBeforeAction ->
 		this.render 'login'
 
 Router.route '/', ->
-	this.render('main')
+	if account?.user()?.profile.role is 'funcionario'
+		this.render('funcionario')
+	else
+		this.render('conta')
