@@ -58,6 +58,13 @@
 				<tr>
 					<td>
 						{{operacao}}
+						{{#if $eq operacao 'transferencia'}}
+							{{#if $eq tipo 'debito'}}
+								para Agencia: {{para.agencia}} e Conta: {{para.conta}}
+							{{else}}
+								de Agencia: {{de.agencia}} e Conta: {{de.conta}}
+							{{/if}}
+						{{/if}}
 					</td>
 					<td class="text-right">
 						{{#if $eq tipo 'debito'}}
