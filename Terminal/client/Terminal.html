@@ -1,14 +1,15 @@
 <head>
-  <title>Terminal</title>
+	<title>Terminal</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+	{{> main}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="main">
+	{{#if logged}}
+		logado
+	{{else}}
+		{{> login}}
+	{{/if}}
 </template>
