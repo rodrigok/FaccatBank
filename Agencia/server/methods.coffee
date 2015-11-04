@@ -27,5 +27,23 @@ Meteor.methods
 
 # Deposito
 Meteor.methods
-	'deposito': (data) ->
+	'depositar': (data) ->
 		return chamarOperadorAutenticado.call this, 'deposito', 'depositar', data
+
+
+# Saque
+Meteor.methods
+	'sacar': (data) ->
+		return chamarOperadorAutenticado.call this, 'saque', 'sacar', data
+
+
+# Extrato
+Meteor.methods
+	'extrato': (data) ->
+		return chamarOperadorAutenticado.call this, 'extrato', 'extrato', data
+
+
+# Transferencia
+Meteor.methods
+	'transferir': (data) ->
+		return chamarOperadorAutenticado.call this, 'transferencia', 'transferir', data
