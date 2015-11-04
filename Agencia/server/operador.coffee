@@ -1,6 +1,7 @@
 agencia = String(process.env.AGENCIA)
 
 @chamarOperador = (operador, nome, data) ->
+	this.unblock()
 	operadorInterno = Cluster.discoverConnection("operador-#{operador}")
 	try
 		return operadorInterno.call nome, data
@@ -30,4 +31,4 @@ permissoes =
 		if Meteor.user().profile.role is 'conta'
 			data.conta = Meteor.user()._id
 
-	return chamarOperador operador, nome, data
+	return chamarOperador.call this, operador, nome, data
