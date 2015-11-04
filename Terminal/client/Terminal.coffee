@@ -16,9 +16,11 @@ Tracker.autorun (c) ->
 
 		try agenciaFuncionario.call 'cliente:deletar', {cpf: '22222222222'}
 		try agenciaFuncionario.call 'conta:deletar', {conta: '1'}
+		try agenciaFuncionario.call 'conta:deletar', {conta: '2'}
 
 		agenciaFuncionario.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '22222222222', senha: '22222222222'}
 		agenciaFuncionario.call 'conta:cadastrar', {cpf: '22222222222', conta: '1'}
+		agenciaFuncionario.call 'conta:cadastrar', {cpf: '22222222222', conta: '2'}
 
 
 		Meteor.setTimeout ->
@@ -38,6 +40,11 @@ Tracker.autorun (c) ->
 
 					agenciaCliente.call 'sacar', {conta: '1', valor: 40}
 
+					agenciaCliente.call 'transferir', {conta: '1', valor: 50, para: {agencia: '1', conta: '2'}}
+
 					agenciaCliente.call 'extrato', {conta: '1'}, (err, data) ->
-						console.log data
+						console.log 'conta 1', JSON.stringify(data, null, 2)
+
+					agenciaCliente.call 'extrato', {conta: '2'}, (err, data) ->
+						console.log 'conta 2', JSON.stringify(data, null, 2)
 		, 2000

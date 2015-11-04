@@ -1,13 +1,12 @@
 Meteor.methods
 	transferir: (data) ->
 		check data, Object
-		check data.de, Object
 		check data.para, Object
 
-		Validations.agencia data.de.agencia
-		Validations.conta data.de.conta
-		Verifications.deveExistirAgencia data.de.agencia
-		Verifications.deveExistirConta data.de.conta
+		Validations.agencia data.agencia
+		Validations.conta data.conta
+		Verifications.deveExistirAgencia data.agencia
+		Verifications.deveExistirConta data.conta
 
 		Validations.agencia data.para.agencia
 		Validations.conta data.para.conta
@@ -21,14 +20,14 @@ Meteor.methods
 			operacao: 'transferencia'
 			tipo: 'debito'
 			para: data.para
-			agencia: data.de.agencia
-			conta: data.de.conta
+			agencia: data.agencia
+			conta: data.conta
 			operador: Meteor.userId()
 			valor: data.valor
 
 		contas.update
-			_id: data.de.conta
-			agencia: data.de.agencia
+			_id: data.conta
+			agencia: data.agencia
 		,
 			$inc:
 				valor: -data.valor
