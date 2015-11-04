@@ -26,7 +26,7 @@
 			throw new Meteor.Error 'O campo "conta" deve ser string'
 
 	valor: (valor) ->
-		if not Match.test(valor, Number)
+		if not Match.test(valor, Number) or Number.isNaN(valor)
 			throw new Meteor.Error 'O campo "valor" deve ser numérico'
 
 		if valor <= 0
@@ -77,3 +77,17 @@
 			throw new Meteor.Error "Conta já cadastrada"
 
 		return record
+
+	temSaldoParaSaque: (conta, valor) ->
+		if not Match.test(valor, Number) or Number.isNaN(valor)
+			throw new Meteor.Error 'O campo "valor" deve ser numérico'
+
+		record = Meteor.users.findOne(conta)
+		if not record?
+			throw new Meteor.Error "Conta não encontrada"
+
+		saldo = record.saldo
+		if saldo < valor
+			throw new Meteor.Error 'Conta não possui saldo suficiente'
+
+		return saldo

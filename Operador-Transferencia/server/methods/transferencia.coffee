@@ -8,12 +8,13 @@ Meteor.methods
 		Verifications.deveExistirAgencia data.agencia
 		Verifications.deveExistirConta data.conta
 
+		Validations.valor data.valor
+		Verifications.temSaldoParaSaque data.conta, data.valor
+
 		Validations.agencia data.para.agencia
 		Validations.conta data.para.conta
 		Verifications.deveExistirAgencia data.para.agencia
 		Verifications.deveExistirConta data.para.conta
-
-		Validations.valor data.valor
 
 		# Debito de
 		transacoes.insert

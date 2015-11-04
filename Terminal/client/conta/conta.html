@@ -25,6 +25,23 @@
 			</div>
 		</div>
 	</nav>
+
+	{{#if transferir}}
+		<form class="form-inline text-center">
+			<div class="form-group">
+				<input type="number" class="form-control" id="agencia" placeholder="Agencia">
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" id="conta" placeholder="Conta">
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" id="valor" placeholder="valor">
+			</div>
+			<button type="submit" class="btn btn-primary">Transferir</button>
+			<button type="button" class="btn btn-default cancelar-transferencia">Cancelar</button>
+		</form>
+	{{/if}}
+
 	<table class="table table-striped">
 		<thead>
 			<tr>

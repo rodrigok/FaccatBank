@@ -26,7 +26,7 @@
 			throw new Meteor.Error 'O campo "conta" deve ser string'
 
 	valor: (valor) ->
-		if not Match.test(valor, Number)
+		if not Match.test(valor, Number) or Number.isNaN(valor)
 			throw new Meteor.Error 'O campo "valor" deve ser numérico'
 
 		if valor <= 0
@@ -79,7 +79,7 @@
 		return record
 
 	temSaldoParaSaque: (conta, valor) ->
-		if not Match.test(valor, Number)
+		if not Match.test(valor, Number) or Number.isNaN(valor)
 			throw new Meteor.Error 'O campo "valor" deve ser numérico'
 
 		record = Meteor.users.findOne(conta)

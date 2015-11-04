@@ -1,4 +1,5 @@
 Template.conta.onCreated ->
+	@transferir = new ReactiveVar false
 	@extrato = new ReactiveVar
 	@carregarSaldo = ->
 		agencia.get().call 'extrato', {}, (err, data) =>
@@ -6,12 +7,17 @@ Template.conta.onCreated ->
 
 	@carregarSaldo()
 
+
 Template.conta.helpers
 	extrato: ->
 		return Template.instance().extrato.get()
 
 	conta: ->
 		return account?.userId()
+
+	transferir: ->
+		return Template.instance().transferir.get()
+
 
 Template.conta.events
 	'click .logout': ->
@@ -28,7 +34,6 @@ Template.conta.events
 			closeOnConfirm: false
 			animation: "slide-from-top"
 		, (inputValue) ->
-			console.log 1
 			agencia.get().call 'depositar', {valor: parseFloat(inputValue)}, (err, data) =>
 				if err?
 					swal
@@ -52,7 +57,6 @@ Template.conta.events
 			closeOnConfirm: false
 			animation: "slide-from-top"
 		, (inputValue) ->
-			console.log 1
 			agencia.get().call 'sacar', {valor: parseFloat(inputValue)}, (err, data) =>
 				if err?
 					swal
@@ -64,3 +68,28 @@ Template.conta.events
 					swal
 						type: 'success'
 						title: 'Valor sacado'
+
+	'click .transferir': (e, t) ->
+		t.transferir.set not t.transferir.get()
+
+	'click .cancelar-transferencia': (e, t) ->
+		t.transferir.set false
+
+	'submit form': (e, t) ->
+		e.preventDefault()
+		contaValue = $('#conta').val().trim()
+		agenciaValue = $('#agencia').val().trim()
+		valorValue = $('#valor').val().trim()
+
+		agencia.get().call 'transferir', {valor: parseFloat(valorValue), para: {agencia: agenciaValue, conta: contaValue}}, (err, data) =>
+			if err?
+				swal
+					type: 'error'
+					title: 'Oooops'
+					text: err.error
+			else
+				t.carregarSaldo()
+				t.transferir.set false
+				swal
+					type: 'success'
+					title: 'Valor transferido'
