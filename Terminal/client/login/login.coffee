@@ -60,14 +60,3 @@ Template.login.events
 # 		agenciaFuncionario.call 'conta:cadastrar', {cpf: '22222222222', conta: '1', senha: '123456'}
 # 		agenciaFuncionario.call 'conta:cadastrar', {cpf: '22222222222', conta: '2', senha: '123456'}
 
-# 					agenciaCliente.call 'depositar', {valor: 120}
-# 					agenciaCliente.call 'depositar', {valor: 20}
-# 					agenciaCliente.call 'depositar', {valor: 100}
-
-# 					agenciaCliente.call 'sacar', {valor: 40}
-
-# 					agenciaCliente.call 'transferir', {valor: 50, para: {agencia: '1', conta: '2'}}
-
-# 					agenciaCliente.call 'extrato', {}, (err, data) ->
-# 						console.log 'conta 1', JSON.stringify(data, null, 2)
-

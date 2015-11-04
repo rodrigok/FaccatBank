@@ -25,7 +25,7 @@ Meteor.methods
 
 
 	'conta:listar': ->
-		return Meteor.users.find({role: 'conta'}).fetch()
+		return Meteor.users.find({'profile.role': 'conta'}).fetch()
 
 
 	'conta:deletar': (data) ->

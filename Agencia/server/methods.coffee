@@ -12,6 +12,9 @@ Meteor.methods
 	'conta:cadastrar': (data) ->
 		return chamarOperadorAutenticado.call this, 'interno', 'conta:cadastrar', data
 
+	'conta:listar': (data) ->
+		return chamarOperadorAutenticado.call this, 'interno', 'conta:listar', data
+
 	'conta:deletar': (data) ->
 		return chamarOperadorAutenticado.call this, 'interno', 'conta:deletar', data
 
@@ -20,6 +23,9 @@ Meteor.methods
 Meteor.methods
 	'cliente:cadastrar': (data) ->
 		return chamarOperadorAutenticado.call this, 'interno', 'cliente:cadastrar', data
+
+	'cliente:listar': (data) ->
+		return chamarOperadorAutenticado.call this, 'interno', 'cliente:listar', data
 
 	'cliente:deletar': (data) ->
 		return chamarOperadorAutenticado.call this, 'interno', 'cliente:deletar', data

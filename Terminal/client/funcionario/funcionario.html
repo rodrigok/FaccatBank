@@ -1,0 +1,135 @@
+<template name="funcionario">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">FaccatBank</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="#" class="cadastrarCliente">Cadastrar Cliente</a></li>
+					<li><a href="#" class="cadastrarConta">Cadastrar Conta</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<p class="navbar-text">Funcionário: {{conta}}</p>
+					<li><a href="#" class="logout">Sair</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	{{#if cadastrarConta}}
+		<form class="form-inline text-center cadastrarConta container">
+			<div class="form-group">
+				<label for="conta">Cadastrar Conta:</label>
+				<input type="text" class="form-control" id="cpf" placeholder="CPF do Cliente">
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" id="conta" placeholder="Conta">
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="senha" placeholder="Senha">
+			</div>
+			<button type="submit" class="btn btn-primary">Cadastrar</button>
+			<button type="button" class="btn btn-default cancelar-conta">Cancelar</button>
+			<br>
+			<br>
+		</form>
+	{{/if}}
+
+	{{#if cadastrarCliente}}
+		<form class="form-inline text-center cadastrarCliente container">
+			<div class="form-group">
+				<label for="cpf">Cadastrar Cliente:</label>
+				<input type="text" class="form-control" id="cpf" placeholder="CPF">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" id="nome" placeholder="Nome">
+			</div>
+			<button type="submit" class="btn btn-primary">Cadastrar</button>
+			<button type="button" class="btn btn-default cancelar-cliente">Cancelar</button>
+			<br>
+			<br>
+		</form>
+	{{/if}}
+
+	<div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Clientes</h3>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>
+								CPF
+							</th>
+							<th>
+								Nome
+							</th>
+							<th width="50"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each clientes}}
+							<tr>
+								<td>
+									{{_id}}
+								</td>
+								<td>
+									{{nome}}
+								</td>
+								<td>
+									<button class="btn btn-small btn-danger apagar-cliente">Apagar</button>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Contas</h3>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>
+								Conta
+							</th>
+							<th class="text-right">
+								Saldo
+							</th>
+							<th width="50"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each contas}}
+							<tr>
+								<td>
+									{{_id}}
+								</td>
+								<td class="text-right">
+									R$ {{saldo}}
+								</td>
+								<td>
+									<button class="btn btn-sm btn-danger apagar-conta">Apagar</button>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</template>
