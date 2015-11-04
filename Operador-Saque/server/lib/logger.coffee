@@ -4,7 +4,7 @@ Meteor.methods = (obj) ->
 	for fnName, fn of obj
 		do (fnName, fn) ->
 			obj[fnName] = ->
-				console.log 'OPERADOR-DEPOSITO:', fnName, arguments
+				console.log 'OPERADOR-SAQUE:', fnName, arguments
 				fn.apply this, arguments
 
 	methods obj
