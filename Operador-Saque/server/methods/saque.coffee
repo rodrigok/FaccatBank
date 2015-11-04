@@ -12,7 +12,6 @@ Meteor.methods
 			tipo: 'debito'
 			agencia: data.agencia
 			conta: data.conta
-			operador: Meteor.userId()
 			valor: data.valor
 			data: new Date
 

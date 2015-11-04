@@ -22,7 +22,6 @@ Meteor.methods
 			para: data.para
 			agencia: data.agencia
 			conta: data.conta
-			operador: Meteor.userId()
 			valor: data.valor
 
 		Meteor.users.update
@@ -40,7 +39,6 @@ Meteor.methods
 			de: data.de
 			agencia: data.para.agencia
 			conta: data.para.conta
-			operador: Meteor.userId()
 			valor: data.valor
 
 		Meteor.users.update
