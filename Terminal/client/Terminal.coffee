@@ -1,25 +1,38 @@
-@agencia = Cluster.discoverConnection("agencia1")
-@Account = new AccountsClient({connection: agencia})
+@agenciaFuncionario = Cluster.discoverConnection("agencia1")
+@agenciaCliente = Cluster.discoverConnection("agencia1")
 
-Account.callLoginMethod
+@AccountFuncionario = new AccountsClient({connection: agenciaFuncionario})
+@AccountCliente = new AccountsClient({connection: agenciaCliente})
+
+AccountFuncionario.callLoginMethod
 	methodArguments: [{
 		user: {username: '00000000000'}
 		password: Accounts._hashPassword('00000000000')
 	}]
 
 Tracker.autorun (c) ->
-	if Account.userId()?
+	if AccountFuncionario.userId()?
 		c.stop()
 
-		try agencia.call 'agencia:deletar', {agencia: '1'}
-		try agencia.call 'cliente:deletar', {cpf: '01700873016'}
-		try agencia.call 'conta:deletar', {conta: '1'}
+		try agenciaFuncionario.call 'cliente:deletar', {cpf: '22222222222'}
+		try agenciaFuncionario.call 'conta:deletar', {conta: '1'}
 
-		agencia.call 'agencia:cadastrar', {agencia: '1'}
-		agencia.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '01700873016', senha: '123456'}
-		agencia.call 'conta:cadastrar', {cpf: '01700873016', conta: '1'}
+		agenciaFuncionario.call 'cliente:cadastrar', {nome: 'Rodrigo Nascimento', cpf: '22222222222', senha: '22222222222'}
+		agenciaFuncionario.call 'conta:cadastrar', {cpf: '22222222222', conta: '1'}
 
-		agencia.call 'deposito', {conta: '1', valor: 120}
-		agencia.call 'deposito', {conta: '1', valor: 20}
-		agencia.call 'deposito', {conta: '1', valor: 100}
 
+		Meteor.setTimeout ->
+			AccountCliente.callLoginMethod
+				methodArguments: [{
+					user: {username: '22222222222'}
+					password: Accounts._hashPassword('22222222222')
+				}]
+
+			Tracker.autorun (c) ->
+				if AccountCliente.userId()?
+					c.stop()
+
+					agenciaCliente.call 'deposito', {conta: '1', valor: 120}
+					agenciaCliente.call 'deposito', {conta: '1', valor: 20}
+					agenciaCliente.call 'deposito', {conta: '1', valor: 100}
+		, 2000
