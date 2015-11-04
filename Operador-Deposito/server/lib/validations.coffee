@@ -87,7 +87,7 @@
 			throw new Meteor.Error "Conta não encontrada"
 
 		saldo = record.saldo
-		if saldo <= valor
+		if saldo < valor
 			throw new Meteor.Error 'Conta não possui saldo suficiente'
 
 		return saldo	
