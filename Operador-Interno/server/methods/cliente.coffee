@@ -1,6 +1,5 @@
 Meteor.methods
 	'cliente:cadastrar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.cpf data.cpf
@@ -22,13 +21,10 @@ Meteor.methods
 
 
 	'cliente:listar': ->
-		# TODO verificar permissão
-
 		return Meteor.users.find({role: 'client'}).fetch()
 
 
 	'cliente:deletar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.cpf data.cpf

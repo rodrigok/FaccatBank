@@ -1,6 +1,5 @@
 Meteor.methods
 	'agencia:cadastrar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.agencia data.agencia
@@ -14,13 +13,10 @@ Meteor.methods
 
 
 	'agencia:listar': ->
-		# TODO verificar permissão
-
 		return agencias.find().fetch()
 
 
 	'agencia:deletar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.agencia data.agencia

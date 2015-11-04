@@ -1,6 +1,5 @@
 Meteor.methods
 	'conta:cadastrar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.cpf data.cpf
@@ -21,13 +20,10 @@ Meteor.methods
 
 
 	'conta:listar': ->
-		# TODO verificar permissão
-
 		return contas.find().fetch()
 
 
 	'conta:deletar': (data) ->
-		# TODO verificar permissão
 		check data, Object
 
 		Validations.conta data.conta
