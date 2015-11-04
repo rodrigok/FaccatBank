@@ -11,6 +11,7 @@ Meteor.methods
 
 		Meteor.users.insert
 			_id: data.cpf
+			username: data.cpf
 			role: 'client'
 			profile:
 				nome: data.nome
