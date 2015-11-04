@@ -4,3 +4,6 @@ if not process.env.AGENCIA?
 
 Cluster.connect process.env.MONGO_URL
 Cluster.register "agencia#{process.env.AGENCIA}"
+
+Meteor.startup ->
+	try chamarOperador 'interno', 'agencia:cadastrar', {agencia: process.env.AGENCIA}
