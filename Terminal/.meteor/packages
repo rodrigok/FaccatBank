@@ -24,3 +24,5 @@ twbs:bootstrap
 less
 reactive-var
 iron:router
+raix:handlebar-helpers
+kevohagan:sweetalert
