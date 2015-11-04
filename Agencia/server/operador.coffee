@@ -27,7 +27,7 @@ permissoes =
 	if Match.test data, Object
 		data.agencia = Meteor.user().agencia
 		data.operador = Meteor.user()
-		if Meteor.user().role is 'conta'
+		if Meteor.user().profile.role is 'conta'
 			data.conta = Meteor.user()._id
 
 	return chamarOperador operador, nome, data
