@@ -37,7 +37,9 @@ Meteor.methods
 		transacoes.insert
 			operacao: 'transferencia'
 			tipo: 'credito'
-			de: data.de
+			de:
+				agencia: data.agencia
+				conta: data.conta
 			agencia: data.para.agencia
 			conta: data.para.conta
 			valor: data.valor
