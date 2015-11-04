@@ -4,9 +4,9 @@ Meteor.startup ->
 			_id: '00000000000'
 			username: '00000000000'
 			agencia: '1'
-			role: 'funcionario'
 			profile:
 				nome: 'Funcionário Exemplo'
+				role: 'funcionario'
 
 		Accounts.setPassword '00000000000', '00000000000'
 

@@ -21,7 +21,7 @@ permissoes =
 	if not user?
 		throw new Meteor.Error 'Autentiação requerida'
 
-	if user.role not in permissoes[operador]
+	if user.profile.role not in permissoes[operador]
 		throw new Meteor.Error 'Usuário sem acesso'
 
 	if Match.test data, Object

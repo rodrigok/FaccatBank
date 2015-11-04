@@ -14,9 +14,10 @@ Meteor.methods
 		Meteor.users.insert
 			_id: data.conta
 			agencia: data.agencia
-			role: 'conta'
 			username: data.conta
 			saldo: 0
+			profile:
+				role: 'conta'
 
 		Accounts.setPassword data.conta, data.senha
 
