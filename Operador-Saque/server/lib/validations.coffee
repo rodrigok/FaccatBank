@@ -35,7 +35,7 @@
 
 @Verifications =
 	deveExistirCpf: (cpf) ->
-		record = Meteor.users.findOne(cpf)
+		record = clientes.findOne(cpf)
 		if not record?
 			throw new Meteor.Error "Cliente não encontrado"
 
@@ -49,7 +49,7 @@
 		return record
 
 	deveExistirConta: (conta) ->
-		record = contas.findOne(conta)
+		record = Meteor.users.findOne(conta)
 		if not record?
 			throw new Meteor.Error "Conta não encontrada"
 
@@ -58,7 +58,7 @@
 
 
 	naoDeveExistirCpf: (cpf) ->
-		record = Meteor.users.findOne(cpf)
+		record = clientes.findOne(cpf)
 		if record?
 			throw new Meteor.Error "Cliente já cadastrado"
 
@@ -72,7 +72,7 @@
 		return record
 
 	naoDeveExistirConta: (conta) ->
-		record = contas.findOne(conta)
+		record = Meteor.users.findOne(conta)
 		if record?
 			throw new Meteor.Error "Conta já cadastrada"
 

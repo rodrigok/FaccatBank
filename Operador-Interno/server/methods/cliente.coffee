@@ -4,24 +4,18 @@ Meteor.methods
 
 		Validations.cpf data.cpf
 		Validations.nome data.nome
-		Validations.senha data.senha
 
 		Verifications.naoDeveExistirCpf data.cpf
 
-		Meteor.users.insert
+		clientes.insert
 			_id: data.cpf
-			username: data.cpf
-			role: 'cliente'
-			profile:
-				nome: data.nome
-
-		Accounts.setPassword data.cpf, data.senha
+			nome: data.nome
 
 		return true
 
 
 	'cliente:listar': ->
-		return Meteor.users.find({role: 'client'}).fetch()
+		return clientes.find().fetch()
 
 
 	'cliente:deletar': (data) ->
@@ -31,6 +25,6 @@ Meteor.methods
 
 		Verifications.deveExistirCpf data.cpf
 
-		Meteor.users.remove _id: data.cpf
+		clientes.remove _id: data.cpf
 
 		return true

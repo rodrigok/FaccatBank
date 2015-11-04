@@ -10,8 +10,7 @@ Meteor.methods
 			agencia: data.agencia
 			conta: data.conta
 
-		c = contas.findOne
-			_id: data.conta
+		c = Meteor.users.findOne {_id: data.conta}, {fields: {agencia: 1, saldo: 1}}
 
 		return {
 			conta: c

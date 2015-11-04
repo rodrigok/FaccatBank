@@ -16,11 +16,11 @@ Meteor.methods
 			valor: data.valor
 			data: new Date
 
-		contas.update
+		Meteor.users.update
 			_id: data.conta
 			agencia: data.agencia
 		,
 			$inc:
-				valor: -data.valor
+				saldo: -data.valor
 
 		return true

@@ -25,12 +25,12 @@ Meteor.methods
 			operador: Meteor.userId()
 			valor: data.valor
 
-		contas.update
+		Meteor.users.update
 			_id: data.conta
 			agencia: data.agencia
 		,
 			$inc:
-				valor: -data.valor
+				saldo: -data.valor
 
 
 		# Credito para
@@ -43,9 +43,9 @@ Meteor.methods
 			operador: Meteor.userId()
 			valor: data.valor
 
-		contas.update
+		Meteor.users.update
 			_id: data.para.conta
 			agencia: data.para.agencia
 		,
 			$inc:
-				valor: data.valor
+				saldo: data.valor

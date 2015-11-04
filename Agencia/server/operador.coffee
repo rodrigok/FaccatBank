@@ -14,10 +14,10 @@ agencia = String(process.env.AGENCIA)
 
 permissoes =
 	interno: ['funcionario']
-	deposito: ['cliente']
-	saque: ['cliente']
-	extrato: ['cliente']
-	transferencia: ['cliente']
+	deposito: ['conta']
+	saque: ['conta']
+	extrato: ['conta']
+	transferencia: ['conta']
 
 
 @chamarOperadorAutenticado = (operador, nome, data) ->

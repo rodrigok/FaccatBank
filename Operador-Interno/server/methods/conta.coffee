@@ -5,22 +5,26 @@ Meteor.methods
 		Validations.cpf data.cpf
 		Validations.agencia data.agencia
 		Validations.conta data.conta
+		Validations.senha data.senha
 
 		Verifications.deveExistirCpf data.cpf
 		Verifications.deveExistirAgencia data.agencia
 		Verifications.naoDeveExistirConta data.conta
 
-		contas.insert
+		Meteor.users.insert
 			_id: data.conta
 			agencia: data.agencia
-			cliente: data.cpf
+			role: 'conta'
+			username: data.conta
 			saldo: 0
+
+		Accounts.setPassword data.conta, data.senha
 
 		return true
 
 
 	'conta:listar': ->
-		return contas.find().fetch()
+		return Meteor.users.find({role: 'conta'}).fetch()
 
 
 	'conta:deletar': (data) ->
@@ -29,7 +33,7 @@ Meteor.methods
 		Validations.conta data.conta
 		Verifications.deveExistirConta data.conta
 
-		contas.remove _id: data.conta
+		Meteor.users.remove _id: data.conta
 
 		transacoes.remove conta: data.conta
 
