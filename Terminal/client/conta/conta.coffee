@@ -3,7 +3,8 @@ Template.conta.onCreated ->
 	@extrato = new ReactiveVar
 	@carregarSaldo = ->
 		agencia.get().call 'extrato', {}, (err, data) =>
-			@extrato.set data
+			if not showError(err)?
+				@extrato.set data
 
 	@carregarSaldo()
 
@@ -35,12 +36,7 @@ Template.conta.events
 			animation: "slide-from-top"
 		, (inputValue) ->
 			agencia.get().call 'depositar', {valor: parseFloat(inputValue)}, (err, data) =>
-				if err?
-					swal
-						type: 'error'
-						title: 'Oooops'
-						text: err.error
-				else
+				if not showError(err)?
 					t.carregarSaldo()
 					swal
 						type: 'success'
@@ -58,12 +54,7 @@ Template.conta.events
 			animation: "slide-from-top"
 		, (inputValue) ->
 			agencia.get().call 'sacar', {valor: parseFloat(inputValue)}, (err, data) =>
-				if err?
-					swal
-						type: 'error'
-						title: 'Oooops'
-						text: err.error
-				else
+				if not showError(err)?
 					t.carregarSaldo()
 					swal
 						type: 'success'
@@ -82,12 +73,7 @@ Template.conta.events
 		valorValue = $('#valor').val().trim()
 
 		agencia.get().call 'transferir', {valor: parseFloat(valorValue), para: {agencia: agenciaValue, conta: contaValue}}, (err, data) =>
-			if err?
-				swal
-					type: 'error'
-					title: 'Oooops'
-					text: err.error
-			else
+			if not showError(err)?
 				t.carregarSaldo()
 				t.transferir.set false
 				swal

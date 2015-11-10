@@ -3,8 +3,12 @@ agencia = String(process.env.AGENCIA)
 @chamarOperador = (operador, nome, data) ->
 	this.unblock()
 	operadorInterno = Cluster.discoverConnection("operador-#{operador}")
+	if operadorInterno.status().status is 'offline'
+		throw new Meteor.Error "O serviço \"#{nome}\" está indisponível"
 	try
-		return operadorInterno.call nome, data
+		result = operadorInterno.call nome, data
+		operadorInterno.close()
+		return result
 	catch e
 		throw e
 
@@ -27,7 +31,7 @@ permissoes =
 
 	if Match.test data, Object
 		data.agencia = Meteor.user().agencia
-		data.operador = Meteor.user()
+		# data.operador = Meteor.user()
 		if Meteor.user().profile.role is 'conta'
 			data.conta = Meteor.user()._id
 

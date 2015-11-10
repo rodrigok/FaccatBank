@@ -5,14 +5,16 @@ Template.funcionario.onCreated ->
 	@clientes = new ReactiveVar
 	@carregarClientes = ->
 		agencia.get().call 'cliente:listar', {}, (err, data) =>
-			@clientes.set data
+			if not showError(err)?
+				@clientes.set data
 
 	@carregarClientes()
 
 	@contas = new ReactiveVar
 	@carregarContas = ->
 		agencia.get().call 'conta:listar', {}, (err, data) =>
-			@contas.set data
+			if not showError(err)?
+				@contas.set data
 
 	@carregarContas()
 
@@ -55,12 +57,7 @@ Template.funcionario.events
 		nomeValue = t.$('#nome').val().trim()
 
 		agencia.get().call 'cliente:cadastrar', {nome: nomeValue, cpf: cpfValue}, (err, data) =>
-			if err?
-				swal
-					type: 'error'
-					title: 'Oooops'
-					text: err.error
-			else
+			if not showError(err)?
 				t.carregarClientes()
 				t.cadastrarCliente.set false
 				swal
@@ -74,12 +71,7 @@ Template.funcionario.events
 		senhaValue = t.$('#senha').val().trim()
 
 		agencia.get().call 'conta:cadastrar', {cpf: cpfValue, conta: contaValue, senha: senhaValue}, (err, data) =>
-			if err?
-				swal
-					type: 'error'
-					title: 'Oooops'
-					text: err.error
-			else
+			if not showError(err)?
 				t.carregarContas()
 				t.cadastrarConta.set false
 				swal
@@ -94,12 +86,7 @@ Template.funcionario.events
 			showCancelButton: true,
 		, =>
 			agencia.get().call 'conta:deletar', {conta: this._id}, (err, data) =>
-				if err?
-					swal
-						type: 'error'
-						title: 'Oooops'
-						text: err.error
-				else
+				if not showError(err)?
 					t.carregarContas()
 					t.cadastrarConta.set false
 					swal
@@ -114,12 +101,7 @@ Template.funcionario.events
 			showCancelButton: true,
 		, =>
 			agencia.get().call 'cliente:deletar', {cpf: this._id}, (err, data) =>
-				if err?
-					swal
-						type: 'error'
-						title: 'Oooops'
-						text: err.error
-				else
+				if not showError(err)?
 					t.carregarClientes()
 					t.cadastrarCliente.set false
 					swal
